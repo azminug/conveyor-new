@@ -706,7 +706,23 @@ void scannerTask(void *param)
       }
     }
 
-    // ========== STEP 2: If Barcode Failed, Try RFID ==========
+    // ========== STEP 2: Auto-Bind - If Barcode OK, also try RFID for binding ==========
+    if (result.success && result.method == SCAN_BARCODE)
+    {
+      // Quick RFID scan attempt for auto-bind (non-blocking, 1 try)
+      UHFTag bindTag;
+      if (uhfReader.singleInventory(&bindTag))
+      {
+        String bindEpc = bindTag.getEPCString();
+        if (bindEpc.length() > 0)
+        {
+          strncpy(result.rfidEpc, bindEpc.c_str(), MAX_EPC_LEN - 1);
+          Serial.printf("[AUTO-BIND] Barcode OK + RFID tag terdeteksi: %s\n", bindEpc.c_str());
+        }
+      }
+    }
+
+    // ========== STEP 3: If Barcode Failed, Try RFID as identifier ==========
     if (!result.success)
     {
 #if USE_ULTRASONIC
@@ -785,7 +801,7 @@ void scannerTask(void *param)
       }
     }
 
-    // ========== STEP 3: Send to Queue if Successful ==========
+    // ========== STEP 4: Send to Queue if Successful ==========
     if (result.success)
     {
       // Cek apakah paket ini sedang diproses (cegah duplicate scan)
@@ -862,6 +878,53 @@ void firebaseTask(void *param)
 
         // Request damage detection
         requestDamageDetection(String(scanResult.paketId));
+
+        // ========== Auto-Bind: Barcode scan + RFID tag detected → bind EPC to paket ==========
+        String epcStr = String(scanResult.rfidEpc);
+        if (scanResult.method == SCAN_BARCODE && epcStr.length() > 0)
+        {
+          // Check if this EPC is already bound
+          String existingPaket, existingKodepos;
+          if (!lookupRFIDTag(epcStr, &existingPaket, &existingKodepos))
+          {
+            // New EPC → bind to this paket
+            String paketIdStr = String(scanResult.paketId);
+            String kodeposStr = String(scanResult.kodepos);
+
+            // 1. Write to /conveyor/rfid_tags/{EPC}
+            FirebaseJson rfidJson;
+            rfidJson.set("paket_id", paketIdStr);
+            rfidJson.set("kodepos", kodeposStr);
+            rfidJson.set("registered_at", getTimeString());
+            rfidJson.set("registered_by", "auto-bind");
+
+            String rfidPath = "/conveyor/rfid_tags/" + epcStr;
+            bool ok = Firebase.setJSON(firebaseData, rfidPath, rfidJson);
+
+            // 2. Update paket with rfid_epc field
+            if (ok)
+            {
+              Firebase.setString(firebaseData, "/conveyor/paket/" + paketIdStr + "/rfid_epc", epcStr);
+            }
+
+            // 3. Update local cache
+            if (ok && rfidCacheCount < MAX_RFID_CACHE)
+            {
+              rfidCache[rfidCacheCount++] = {epcStr, paketIdStr, kodeposStr};
+            }
+
+            Serial.printf("[AUTO-BIND] %s: EPC %s -> Paket %s (kodepos: %s) %s\n",
+                          ok ? "OK" : "GAGAL", epcStr.c_str(), paketIdStr.c_str(),
+                          kodeposStr.c_str(), ok ? "" : firebaseData.errorReason().c_str());
+
+            logESP32("auto_bind", paketIdStr, "-", ok ? "success" : "fail", SCAN_RFID);
+          }
+          else
+          {
+            Serial.printf("[AUTO-BIND] EPC %s sudah terdaftar -> %s\n",
+                          epcStr.c_str(), existingPaket.c_str());
+          }
+        }
 
         // Send to control task
         ControlData ctrlData;
