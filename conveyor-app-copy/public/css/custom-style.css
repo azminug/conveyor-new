@@ -1,0 +1,69 @@
+/* Custom Card Styling */
+.custom-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.custom-card .card-body {
+    padding: 20px;
+}
+
+.custom-card .btn {
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #b02a37;
+}
+
+/* Menyusun logo dan user panel dalam satu container */
+.sidebar .d-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
+}
+
+/* Penataan logo */
+.sidebar .brand-link {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Menambahkan gaya untuk user panel */
+.sidebar .user-panel {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Menambahkan padding agar menu lebih rapi */
+.sidebar .nav-sidebar {
+    padding-top: 10px;
+}

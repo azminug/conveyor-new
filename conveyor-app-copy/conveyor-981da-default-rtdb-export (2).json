@@ -1,0 +1,426 @@
+{
+  "conveyor": {
+    "config": {
+      "esp32_id_1": "DC-A",
+      "esp32_id_2": "DC-B"
+    },
+    "esp32_log": {
+      "30:AE:A4:5B:8C:24": {
+        "35905": {
+          "aksi": "update_status",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Proses",
+          "waktu": "2025-07-24 22:54:41"
+        },
+        "35980": {
+          "aksi": "scan",
+          "paket_id": "PKT-00002",
+          "result": "found",
+          "status": "Proses",
+          "waktu": "2025-07-24 22:54:41"
+        },
+        "42370": {
+          "aksi": "update_status",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 22:54:48"
+        },
+        "43365": {
+          "aksi": "sortir",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 22:54:49"
+        },
+        "187223": {
+          "aksi": "scan",
+          "paket_id": "PKT-67819",
+          "result": "found",
+          "status": "Proses",
+          "waktu": "2025-08-07 20:26:05"
+        },
+        "193658": {
+          "aksi": "update_status",
+          "paket_id": "PKT-67819",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-08-07 20:26:11"
+        },
+        "194612": {
+          "aksi": "sortir",
+          "paket_id": "PKT-67819",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-08-07 20:26:12"
+        },
+        "206602": {
+          "aksi": "sortir",
+          "paket_id": "PKT-32610",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 21:23:37"
+        },
+        "453667": {
+          "aksi": "scan",
+          "paket_id": "PKT-67819",
+          "result": "found",
+          "status": "Proses",
+          "waktu": "2025-08-07 20:13:32"
+        },
+        "460126": {
+          "aksi": "update_status",
+          "paket_id": "PKT-67819",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-08-07 20:13:39"
+        },
+        "461132": {
+          "aksi": "sortir",
+          "paket_id": "PKT-67819",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-08-07 20:13:40"
+        },
+        "2254336": {
+          "aksi": "update_status",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Proses",
+          "waktu": "2025-07-24 22:26:45"
+        },
+        "2254409": {
+          "aksi": "scan",
+          "paket_id": "PKT-00002",
+          "result": "found",
+          "status": "Proses",
+          "waktu": "2025-07-24 22:26:45"
+        },
+        "2260816": {
+          "aksi": "update_status",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 22:26:52"
+        },
+        "2261871": {
+          "aksi": "sortir",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 22:26:53"
+        },
+        "2411348": {
+          "aksi": "update_status",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Proses",
+          "waktu": "2025-07-24 22:29:22"
+        },
+        "2411453": {
+          "aksi": "scan",
+          "paket_id": "PKT-00002",
+          "result": "found",
+          "status": "Proses",
+          "waktu": "2025-07-24 22:29:23"
+        },
+        "2417896": {
+          "aksi": "update_status",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 22:29:29"
+        },
+        "2418826": {
+          "aksi": "sortir",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 22:29:30"
+        },
+        "2505863": {
+          "aksi": "update_status",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Proses",
+          "waktu": "2025-07-24 22:30:57"
+        },
+        "2505967": {
+          "aksi": "scan",
+          "paket_id": "PKT-00002",
+          "result": "found",
+          "status": "Proses",
+          "waktu": "2025-07-24 22:30:57"
+        },
+        "2512411": {
+          "aksi": "update_status",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 22:31:03"
+        },
+        "2513721": {
+          "aksi": "sortir",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 22:31:05"
+        },
+        "2996458": {
+          "aksi": "update_status",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Proses",
+          "waktu": "2025-07-24 22:39:08"
+        },
+        "2996549": {
+          "aksi": "scan",
+          "paket_id": "PKT-00002",
+          "result": "found",
+          "status": "Proses",
+          "waktu": "2025-07-24 22:39:08"
+        },
+        "3003009": {
+          "aksi": "update_status",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 22:39:14"
+        },
+        "3004009": {
+          "aksi": "sortir",
+          "paket_id": "PKT-00002",
+          "result": "success",
+          "status": "Tersortir",
+          "waktu": "2025-07-24 22:39:15"
+        }
+      }
+    },
+    "esp32_status": {
+      "30:AE:A4:5B:8C:24": {
+        "dcName": "DC-A",
+        "ip": "172.20.10.2",
+        "last_seen": "2025-08-07 20:38:04",
+        "last_seen_epoch": 1754573884,
+        "ssid": "min"
+      }
+    },
+    "jalur": {
+      "Jalur 1": {
+        "kodepos": [
+          "40531",
+          "40532"
+        ]
+      },
+      "Jalur 2": {
+        "kodepos": [
+          "40533",
+          "40534"
+        ]
+      },
+      "Jalur 3": {
+        "kodepos": [
+          "40535",
+          "40536"
+        ]
+      },
+      "Jalur 4": {
+        "kodepos": [
+          "40559",
+          "40560"
+        ]
+      }
+    },
+    "paket": {
+      "PKT-00001": {
+        "alamat_penerima": "Jl. Sudirman No. 2, Cimahi",
+        "alamat_pengirim": "Jl. Merdeka No. 1, Bandung",
+        "damage": "",
+        "dcName": "DC-A",
+        "esp32_id": "30:AE:A4:5B:8C:24",
+        "id": "PKT-00001",
+        "jalur": "Jalur 1",
+        "kode_pos": "40531",
+        "penerima": "Budi",
+        "pengirim": "Andi",
+        "status": "Tersortir",
+        "telepon_penerima": "082345678901",
+        "telepon_pengirim": "081234567890",
+        "updated_at": "2025-07-24 20:50:53",
+        "waktu_input": "2025-08-01 09:00:00",
+        "waktu_sortir": "2025-07-24 20:50:53"
+      },
+      "PKT-00002": {
+        "alamat_penerima": "Jl. Gatot Subroto No. 5, Bandung",
+        "alamat_pengirim": "Jl. Asia Afrika No. 10, Bandung",
+        "damage": "",
+        "dcName": "DC-A",
+        "esp32_id": "30:AE:A4:5B:8C:24",
+        "id": "PKT-00002",
+        "jalur": "Jalur 2",
+        "kode_pos": "40533",
+        "penerima": "Dewi",
+        "pengirim": "Citra",
+        "sortir_log": {
+          "-OVx4fKieUZwGFo8U2-l": {
+            "damage": "",
+            "dcName": "DC-B",
+            "jalur": "Jalur 2",
+            "status": "Tersortir",
+            "waktu": "2025-07-24 22:39:14"
+          },
+          "-OVx8EFlyJOsxprn7bk-": {
+            "damage": "",
+            "dcName": "DC-A",
+            "jalur": "Jalur 2",
+            "status": "Tersortir",
+            "waktu": "2025-07-24 22:54:47"
+          }
+        },
+        "status": "Tersortir",
+        "telepon_penerima": "083456789012",
+        "telepon_pengirim": "081298765432",
+        "updated_at": "2025-07-24 22:54:47",
+        "waktu_input": "2025-08-01 10:00:00",
+        "waktu_sortir": "2025-07-24 22:54:47"
+      },
+      "PKT-32610": {
+        "alamat_penerima": "asdasd",
+        "alamat_pengirim": "asdasd",
+        "damage": "Rusak Ringan",
+        "dcName": "DC-A",
+        "esp32_id": "30:AE:A4:5B:8C:24",
+        "id": "PKT-32610",
+        "jalur": "Jalur 1",
+        "kode_pos": "40531",
+        "penerima": "asdasd",
+        "pengirim": "asdasd",
+        "sortir_log": {
+          "-OVwoPjwnWJW-aZpiRYx": {
+            "damage": "",
+            "dcName": "30:AE:A4:5B:8C:24",
+            "jalur": "Jalur 1",
+            "status": "Tersortir",
+            "waktu": "2025-07-24 21:23:37"
+          }
+        },
+        "status": "Tersortir",
+        "telepon_penerima": "123123",
+        "telepon_pengirim": "123123",
+        "updated_at": "2025-07-24 21:23:50",
+        "waktu_input": "2025-07-24 09:40:20",
+        "waktu_sortir": "2025-07-24 21:23:37"
+      },
+      "PKT-58284": {
+        "alamat_penerima": "asdads",
+        "alamat_pengirim": "asdasd",
+        "damage": "Rusak Ringan",
+        "dcName": "DC-A",
+        "id": "PKT-58284",
+        "jalur": "Jalur 1",
+        "kode_pos": "40531",
+        "penerima": "asdasd",
+        "pengirim": "asdasd",
+        "status": "Tersortir",
+        "telepon_penerima": "123123",
+        "telepon_pengirim": "12312",
+        "updated_at": "2025-07-24 11:17:26",
+        "waktu_input": "2025-07-24 09:49:25",
+        "waktu_sortir": "2025-07-24 11:17:26"
+      },
+      "PKT-67819": {
+        "alamat_penerima": "Jalan jalan cakep",
+        "alamat_pengirim": "Jalan jalan cakep",
+        "damage": "",
+        "dcName": "DC-A",
+        "esp32_id": "30:AE:A4:5B:8C:24",
+        "id": "PKT-67819",
+        "jalur": "Jalur 2",
+        "kode_pos": "40553",
+        "penerima": "Andri",
+        "pengirim": "Azmi",
+        "sortir_log": {
+          "-OX3ebDIc5rQzYoXlBnH": {
+            "damage": "",
+            "dcName": "DC-B",
+            "jalur": "Jalur 2",
+            "status": "Tersortir",
+            "waktu": "2025-08-07 20:13:38"
+          },
+          "-OX3hTtzf78dDpwDrDMx": {
+            "damage": "",
+            "dcName": "DC-A",
+            "jalur": "Jalur 2",
+            "status": "Tersortir",
+            "waktu": "2025-08-07 20:26:11"
+          }
+        },
+        "status": "Tersortir",
+        "telepon_penerima": "081380554190",
+        "telepon_pengirim": "081380554190",
+        "updated_at": "2025-08-07 20:26:11",
+        "waktu_input": "2025-08-07 13:10:25",
+        "waktu_sortir": "2025-08-07 20:26:11"
+      },
+      "PKT-91514": {
+        "alamat_penerima": "Jalan jalan",
+        "alamat_pengirim": "Jl jl",
+        "damage": "Tidak Rusak",
+        "dcName": "DC-A",
+        "id": "PKT-91514",
+        "jalur": "Jalur 1",
+        "kode_pos": "40531",
+        "penerima": "Aa",
+        "pengirim": "Azmi",
+        "sortir_log": [
+          {
+            "damage": "Tidak Rusak",
+            "dcName": "DC-A",
+            "jalur": "Jalur 1",
+            "status": "Tersortir",
+            "waktu": "2025-07-24 11:47:29"
+          }
+        ],
+        "status": "Tersortir",
+        "telepon_penerima": "092130921",
+        "telepon_pengirim": "0812380",
+        "updated_at": "2025-07-24 11:47:29",
+        "waktu_input": "2025-07-24 08:50:29",
+        "waktu_sortir": "2025-07-24 11:47:29"
+      }
+    }
+  },
+  "users": {
+    "4JI048w152UuCh5AnXJCui1nxGp1": {
+      "dcName": "DC-A",
+      "email": "dca@dca.com",
+      "role": "dc"
+    },
+    "YK0T1Gsvu4UgOWSgZRShX4fL4Q42": {
+      "dcName": "DC-B",
+      "email": "dcb@dcb.com",
+      "role": "dc"
+    },
+    "admin_1": {
+      "dcName": "",
+      "email": "admin@admin.com",
+      "role": "admin"
+    },
+    "su3SnxACfGhimElnIUftFNV42Gi1": {
+      "dcName": "",
+      "email": "admin@admin.com",
+      "role": "admin"
+    },
+    "user_1": {
+      "dcName": "DC-A",
+      "email": "dca@dca.com",
+      "role": "dc"
+    },
+    "user_2": {
+      "dcName": "DC-B",
+      "email": "dcb@dcb.com",
+      "role": "dc"
+    }
+  }
+}

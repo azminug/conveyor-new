@@ -1,0 +1,217 @@
+/**
+ * @file rfid_register.cpp
+ * @brief Utility untuk registrasi RFID tag ke Firebase
+ * 
+ * Program ini digunakan untuk mendaftarkan RFID tag baru ke sistem.
+ * Tag yang sudah terdaftar akan di-mapping ke paket_id dan kodepos.
+ * 
+ * Cara penggunaan:
+ * 1. Flash program ini ke ESP32
+ * 2. Buka Serial Monitor (115200 baud)
+ * 3. Dekatkan RFID tag yang ingin didaftarkan
+ * 4. Masukkan paket_id dan kodepos via Serial
+ * 5. Tag akan tersimpan di Firebase
+ */
+
+#include <Arduino.h>
+#include <WiFi.h>
+#include <FirebaseESP32.h>
+#include <WiFiManager.h>
+#include "EL_UHF_RMT01.h"
+
+// Firebase Configuration
+#define FIREBASE_HOST "https://conveyor-981da-default-rtdb.asia-southeast1.firebasedatabase.app"
+#define FIREBASE_AUTH "kL4X0XviPTv7XtUnaqpbTEPLS4OOJAb8TY7kx0Of"
+
+// UHF RFID Pins
+#define UHF_RX_PIN 16
+#define UHF_TX_PIN 17
+
+HardwareSerial SerialUHF(2);
+EL_UHF_RMT01 uhfReader(&SerialUHF);
+
+FirebaseData firebaseData;
+FirebaseConfig firebaseConfig;
+FirebaseAuth firebaseAuth;
+
+enum State {
+    STATE_SCAN,
+    STATE_INPUT_PAKET_ID,
+    STATE_INPUT_KODEPOS,
+    STATE_CONFIRM
+};
+
+State currentState = STATE_SCAN;
+String currentEPC = "";
+String inputPaketId = "";
+String inputKodepos = "";
+
+void setup() {
+    Serial.begin(115200);
+    Serial.println("\n========================================");
+    Serial.println("  RFID Tag Registration Utility");
+    Serial.println("========================================\n");
+    
+    // Initialize UHF Reader
+    uhfReader.setDebug(true);
+    if (uhfReader.begin(UHF_RX_PIN, UHF_TX_PIN, 115200)) {
+        Serial.println("[UHF] Reader connected!");
+        uhfReader.setRegion(REGION_920MHZ);
+        uhfReader.setPower(2000);
+    } else {
+        Serial.println("[UHF] Reader not found! Check wiring.");
+        while (1) delay(1000);
+    }
+    uhfReader.setDebug(false);
+    
+    // WiFi Setup
+    WiFiManager wm;
+    Serial.println("[WIFI] Connecting...");
+    if (!wm.autoConnect("RFID-Register")) {
+        Serial.println("[WIFI] Failed! Restarting...");
+        ESP.restart();
+    }
+    Serial.println("[WIFI] Connected!");
+    
+    // Firebase Setup
+    firebaseConfig.host = FIREBASE_HOST;
+    firebaseConfig.signer.tokens.legacy_token = FIREBASE_AUTH;
+    Firebase.begin(&firebaseConfig, &firebaseAuth);
+    Firebase.reconnectWiFi(true);
+    
+    Serial.println("\n--- Instructions ---");
+    Serial.println("1. Place RFID tag near the reader");
+    Serial.println("2. Enter paket_id when prompted");
+    Serial.println("3. Enter kodepos when prompted");
+    Serial.println("4. Confirm registration (y/n)");
+    Serial.println("--------------------\n");
+    
+    printPrompt();
+}
+
+void printPrompt() {
+    switch (currentState) {
+        case STATE_SCAN:
+            Serial.println("\n[WAITING] Place RFID tag near reader...");
+            break;
+        case STATE_INPUT_PAKET_ID:
+            Serial.printf("\n[TAG FOUND] EPC: %s\n", currentEPC.c_str());
+            Serial.print("Enter Paket ID: ");
+            break;
+        case STATE_INPUT_KODEPOS:
+            Serial.print("Enter Kodepos: ");
+            break;
+        case STATE_CONFIRM:
+            Serial.println("\n--- Registration Summary ---");
+            Serial.printf("EPC: %s\n", currentEPC.c_str());
+            Serial.printf("Paket ID: %s\n", inputPaketId.c_str());
+            Serial.printf("Kodepos: %s\n", inputKodepos.c_str());
+            Serial.println("----------------------------");
+            Serial.print("Confirm registration? (y/n): ");
+            break;
+    }
+}
+
+void registerTag() {
+    Serial.println("\n[REGISTERING] Saving to Firebase...");
+    
+    String path = "/conveyor/rfid_tags/" + currentEPC;
+    FirebaseJson tagJson;
+    tagJson.set("paket_id", inputPaketId);
+    tagJson.set("kodepos", inputKodepos);
+    tagJson.set("registered_at", String(millis()));
+    
+    if (Firebase.setJSON(firebaseData, path, tagJson)) {
+        Serial.println("[SUCCESS] Tag registered successfully!");
+        Serial.printf("  EPC: %s -> Paket: %s (%s)\n", 
+            currentEPC.c_str(), inputPaketId.c_str(), inputKodepos.c_str());
+    } else {
+        Serial.println("[ERROR] Failed to register tag!");
+        Serial.println(firebaseData.errorReason());
+    }
+    
+    // Reset state
+    currentEPC = "";
+    inputPaketId = "";
+    inputKodepos = "";
+    currentState = STATE_SCAN;
+    printPrompt();
+}
+
+void loop() {
+    // Handle serial input
+    if (Serial.available()) {
+        String input = Serial.readStringUntil('\n');
+        input.trim();
+        
+        switch (currentState) {
+            case STATE_INPUT_PAKET_ID:
+                if (input.length() > 0) {
+                    inputPaketId = input;
+                    currentState = STATE_INPUT_KODEPOS;
+                    printPrompt();
+                }
+                break;
+                
+            case STATE_INPUT_KODEPOS:
+                if (input.length() > 0) {
+                    inputKodepos = input;
+                    currentState = STATE_CONFIRM;
+                    printPrompt();
+                }
+                break;
+                
+            case STATE_CONFIRM:
+                if (input == "y" || input == "Y") {
+                    registerTag();
+                } else {
+                    Serial.println("\n[CANCELLED] Registration cancelled.");
+                    currentEPC = "";
+                    inputPaketId = "";
+                    inputKodepos = "";
+                    currentState = STATE_SCAN;
+                    printPrompt();
+                }
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    // Scan for tags in SCAN state
+    if (currentState == STATE_SCAN) {
+        UHFTag tag;
+        if (uhfReader.singleInventory(&tag)) {
+            currentEPC = tag.getEPCString();
+            
+            // Check if already registered
+            String path = "/conveyor/rfid_tags/" + currentEPC;
+            if (Firebase.getJSON(firebaseData, path)) {
+                FirebaseJson json = firebaseData.jsonObject();
+                FirebaseJsonData data;
+                if (json.get(data, "paket_id")) {
+                    Serial.printf("\n[WARNING] Tag already registered!\n");
+                    Serial.printf("  EPC: %s\n", currentEPC.c_str());
+                    Serial.printf("  Paket ID: %s\n", data.to<String>().c_str());
+                    Serial.println("Do you want to re-register? (y/n): ");
+                    
+                    while (!Serial.available()) delay(100);
+                    String response = Serial.readStringUntil('\n');
+                    response.trim();
+                    
+                    if (response != "y" && response != "Y") {
+                        currentEPC = "";
+                        printPrompt();
+                        return;
+                    }
+                }
+            }
+            
+            currentState = STATE_INPUT_PAKET_ID;
+            printPrompt();
+        }
+    }
+    
+    delay(100);
+}

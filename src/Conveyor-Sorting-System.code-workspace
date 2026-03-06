@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "D:/laragon/www/Conveyor-Sorting-System"
+		},
+		{
+			"name": "testt",
+			"path": "../../../../Users/Raha/OneDrive/Documents/PlatformIO/Projects/testt"
+		},
+		{
+			"name": "testt",
+			"path": "../../testt"
+		},
+		{
+			"name": "convey_esp32",
+			"path": "D:/laragon/www/Conveyor-Sorting-System/convey_esp32"
+		},
+		{
+			"name": "tes1",
+			"path": "../../tes1"
+		},
+		{
+			"name": "convey_esp32",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
