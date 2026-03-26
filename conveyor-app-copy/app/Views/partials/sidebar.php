@@ -66,6 +66,20 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="<?= base_url('device_monitor') ?>" class="nav-link <?= ($currentMenu === 'device_monitor') ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-terminal"></i>
+                        <p>Device Monitor</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('jalur') ?>" class="nav-link <?= ($currentMenu === 'jalur_config') ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-random"></i>
+                        <p>Konfigurasi Jalur</p>
+                    </a>
+                </li>
+
                 <!-- Profil -->
                 <li class="nav-item">
                     <a href="<?= base_url('profile') ?>" class="nav-link <?= ($currentMenu === 'profile') ? 'active' : '' ?>">

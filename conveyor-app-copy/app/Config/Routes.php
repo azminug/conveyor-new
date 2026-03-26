@@ -48,6 +48,7 @@ $routes->get('/', 'HomeController::index', ['as' => 'home']);
 
 // Paket Routes
 $routes->get('daftar_paket_sort', 'PaketController::daftarPaketSort', ['as' => 'daftar_paket_sort']);
+$routes->get('daftar_paket_sort/live', 'PaketController::daftarPaketSortLive', ['filter' => 'auth']);
 $routes->get('daftar_paket', 'PaketController::daftarPaket', ['as' => 'daftar_paket']);
 $routes->post('update_paket', 'PaketController::updatePaket', ['as' => 'update_paket']);
 $routes->post('delete_paket', 'PaketController::deletePaket', ['as' => 'delete_paket']);
@@ -71,7 +72,19 @@ $routes->get('detection/get_recent_packages', 'PaketController::get_recent_packa
 $routes->get('get_filtered_data', 'PaketController::get_filtered_data');
 
 // Lihat Grafik
-$routes->get('lihat_grafik', 'PaketController::lihatGrafik', ['filter' => 'auth', 'filter' => 'adminOnly']);
+$routes->get('lihat_grafik', 'PaketController::lihatGrafik', ['filter' => 'adminOnly']);
+
+// Device Monitor
+$routes->get('device_monitor', 'PaketController::deviceMonitor', ['filter' => 'auth']);
+$routes->get('device_monitor/logs', 'PaketController::deviceLogs', ['filter' => 'auth']);
+$routes->get('device_monitor/status', 'PaketController::deviceStatusData', ['filter' => 'auth']);
+$routes->get('devices', 'PaketController::deviceManager', ['filter' => 'auth']);
+$routes->post('devices/save', 'PaketController::saveDeviceMeta', ['filter' => 'auth']);
+
+// Konfigurasi Jalur (admin)
+$routes->get('jalur', 'PaketController::jalurConfig', ['filter' => 'auth']);
+$routes->post('jalur/save', 'PaketController::saveJalurConfig', ['filter' => 'auth']);
+$routes->post('jalur/remove-kodepos', 'PaketController::removeKodePosFromJalur', ['filter' => 'auth']);
 
 
 /**

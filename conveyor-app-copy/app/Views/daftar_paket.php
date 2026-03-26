@@ -20,10 +20,9 @@
                         <label for="filterJalur">Filter Jalur</label>
                         <select id="filterJalur" class="form-control">
                             <option value="">Semua Jalur</option>
-                            <option value="Jalur 1">Jalur 1</option>
-                            <option value="Jalur 2">Jalur 2</option>
-                            <option value="Jalur 3">Jalur 3</option>
-                            <option value="Jalur 4">Jalur 4</option>
+                            <?php foreach (($jalurOptions ?? []) as $jalurName): ?>
+                                <option value="<?= esc($jalurName) ?>"><?= esc($jalurName) ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
@@ -356,10 +355,9 @@
                                     <label for="editJalur">Jalur</label>
                                     <select id="editJalur" name="jalur" class="form-control">
                                         <option value="">-</option>
-                                        <option value="Jalur 1">Jalur 1</option>
-                                        <option value="Jalur 2">Jalur 2</option>
-                                        <option value="Jalur 3">Jalur 3</option>
-                                        <option value="Jalur 4">Jalur 4</option>
+                                        <?php foreach (($jalurOptions ?? []) as $jalurName): ?>
+                                            <option value="<?= esc($jalurName) ?>"><?= esc($jalurName) ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
